@@ -1,8 +1,25 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Main(){
+function Main({getFlights, flights, setFlights}){
+    const [departureAirport, setDepartureAirport] = useState("");
+    const [arrivalAirport, setArrivalAirport] = useState("");
+    const [date, setDate] = useState("");
     const [tab, setTab] = useState("bookflight");
+    const navigate = useNavigate();
+
+    console.log("in Main.jsx: ", flights);
+
+    useEffect(() => {
+        localStorage.removeItem('flights');
+        setFlights([]);
+    }, []);
+
+    const onFlightSearch = (e) => {
+        e.preventDefault();
+        getFlights(departureAirport, arrivalAirport, date, navigate);
+    }
 
     return(
         <div className="mainpg-container">
@@ -26,46 +43,18 @@ function Main(){
                     <div className="search-flight-text">
                         <h3 className="text">Hi, where would you like to go?</h3>
                     </div>
-                    <form className="search-flight-form">
-                        <ul className="flight-type">
-                            <li className="return">
-                                <input type="radio" name="flight-type" value="return" checked />
-                                <label for="return">Return</label>
-                            </li>
-                            <li className="one-way">
-                                <input type="radio" name="flight-type" value="one-way" />
-                                <label for="one-way">One Way</label>
-                            </li>
-                        </ul>
+                    <form className="search-flight-form" onSubmit={onFlightSearch}>
                         <div className="flight-details">
                             <div className="row">
                                 <div className="route-info">
-                                    <input type="text" name="from" placeholder="From" />
-                                    <input type="text" name="to" placeholder="To" />
+                                    <input type="text" name="from" placeholder="From" onChange={(e) => setDepartureAirport(e.target.value)} />
+                                    <input type="text" name="to" placeholder="To" onChange={(e) => setArrivalAirport(e.target.value)} />
                                 </div>
                                 <div className="date-info">
                                     <div className="deprature-info">
                                         <label for="departure-date">Departure Date</label>
-                                        <input type="date" name="departure-date" />
+                                        <input type="date" name="departure-date" onChange={(e) => setDate(e.target.value)}/>
                                     </div>
-                                    <div className="return-info">
-                                        <label for="return-date">Return Date</label>
-                                        <input type="date" name="return-date" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row second">
-                                <div className="class-info">
-                                    <label for="class">Class</label>
-                                    <select name="class">
-                                        <option value="economy">Economy</option>
-                                        <option value="business">Business</option>
-                                        <option value="first">First</option>
-                                    </select>
-                                </div>
-                                <div className="passenger-num-info">
-                                    <label for="passengers">Passengers</label>
-                                    <input type="number" name="passengers" placeholder="1"/>
                                 </div>
                                 <button type="submit">SEARCH</button>
                             </div>
@@ -79,11 +68,13 @@ function Main(){
                         <h3 className="text">Enter your booking details to retrieve your itinerary</h3>
                     </div>
                     <form className="search-booking-form">
-                            <div className="row second booking">
+                            <div className="row">
                                 <div className="booking-num">
+                                    <label for="departure-date">Booking Number</label>
                                     <input type="text" name="booking-ref" placeholder="Six-character booking reference"/>
                                 </div>
                                 <div className="passenger-last-name">
+                                    <label for="departure-date">Passenger Last Name</label>
                                     <input type="text" name="passengers" placeholder="Last/Family Name"/>
                                 </div>
                                 <button type="submit">RETRIEVE</button>

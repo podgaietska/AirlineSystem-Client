@@ -1,6 +1,7 @@
 
 :root{
   --blue: #1E426A;
+  --darkblue: #193354;
   --lightblue: #165689;
   --bluepurple: #3D5696;
   --darkgrey: #555763;
@@ -96,6 +97,52 @@ label{
 .user-icon{
   font-size: 1.7rem;
 }
+
+.user-in-tab{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: white;
+}
+
+.user-in-tab p{
+  font-size: 1.1rem;
+  margin-left: 0.7rem;
+  cursor: pointer;
+}
+
+.exit-icon{
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.user-actions{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 1rem;
+  height: 6rem;
+  margin-top: 3rem;
+  border-top: 2px solid rgba(20, 20, 20, 0.2);
+}
+
+.user-actions button{
+  margin-top: 1.4rem;
+  width: fit-content;
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--lightblue);
+  cursor: pointer;
+}
+
+.user-actions button:hover{
+  color: var(--blue);
+}
+
 
 /* Main Page */
 .mainpg-container{
@@ -200,15 +247,14 @@ label{
 }
 
 .search-flight-form{
-  height: 12.5rem;
+  height: 8rem;
   width: 92%;
 }
 
 .search-booking-form{
   height: 8rem;
   width: 92%;
-  display: flex;
-  align-items: center; 
+  padding-top: 0.8rem; 
 }
 
 .flight-type{
@@ -235,15 +281,18 @@ label{
 }
 
 .flight-details{
-  height: 80%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .row{
   display: flex;
   width: 100%;
-  height: 42%;
-  justify-content: space-between;
+  height: 4rem;
   align-items: flex-end;
+  justify-content: space-between;
 }
 
 .route-info{
@@ -252,7 +301,7 @@ label{
 }
 
 .date-info{
-  width: 50%;
+  width: 40%;
   display: flex;
 }
 
@@ -283,7 +332,7 @@ input::placeholder{
 }
 
 .booking-num, .passenger-last-name{
-  width: 39%;
+  width: 40%;
   height: 4rem;
   display: flex;
   flex-direction: column;
@@ -298,14 +347,14 @@ input::placeholder{
   justify-content: space-between;
 }
 
-.class-info select, .passenger-num-info input, .booking-num input, .passenger-last-name input{
+.booking-num input, .passenger-last-name input{
   height: 3rem;
   width: 100%;
   border: 1px solid rgba(66, 64, 64, 0.25);
   padding: 0 1rem;
 }
 
-.row.second button{
+.row button{
   height: 3rem;
   width: 18%;
   border: none;
@@ -315,13 +364,14 @@ input::placeholder{
   cursor: pointer;
 }
 
-.row.second button:active{
+.row button:active{
   background: var(--blue);
 }
 
-.row.second.booking{
-  height:auto;
+.row.booking{
+  height:8rem;
   align-items: center;
+
 }
 
 /* Footer */
@@ -748,6 +798,13 @@ input[type="checkbox"]{
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  color: black;
+
+}
+
+.class-price:hover{
+  background: rgba(170, 165, 165, 0.15);
 }
 
 .class-price h2{
@@ -768,6 +825,37 @@ input[type="checkbox"]{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.flight-other-details{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-right: 1px solid rgba(170, 165, 165, 0.15);
+}
+
+.flight-city.overview-pg p{
+  margin-bottom: 0.4rem;
+}
+
+.flight-route{
+  width: 65%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flight-route p{
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(151, 145, 145, 0.5);
+  text-align: center;
 }
 
 /* Flight Overview */
@@ -808,6 +896,11 @@ input[type="checkbox"]{
 
 .pg-title.flight-overview h1{
   margin-bottom: 2rem;
+}
+
+.pg-title.passenger-overview h1{
+  margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 .inpage-container{
@@ -922,37 +1015,217 @@ input[type="checkbox"]{
   margin-top: 0.5rem;
 }
 
-.continue-btns{
-  margin-top: 3rem;
+/* Passenger details - flightOverview */
+
+.row.passenger{
+  height: 6rem;
 }
 
-.continue-btn.guest{
-  background: none;
-  border: none;
-  font-size: 1rem;
-  text-decoration: underline;
-  color: var(--lightblue);
-  margin-right: 3rem;
-  cursor: pointer;
+.passenger-inputs-container{
+  padding: 0 2rem;
 }
 
-.continue-btn.guest:active{
-  color: var(--blue);
+.passenger-input{
+  display: flex;
+  flex-direction: column;
+  width: 48%;
 }
 
-.continue-btn.member{
+.passenger-input label{
+  margin-bottom: 0.5rem;
+}
+
+.passenger-input input{
+  height: 3rem;
+  width: 100%;
+  border: 1px solid rgba(66, 64, 64, 0.25);
+  padding: 0 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.passenger-input.address{
+  width: 30%;
+}
+
+.continue-btn{
   font-size: 1rem;
   color: white;
   border: none;
   background: var(--lightblue);
   padding: 0.9rem 1.7rem;
   cursor: pointer;
+  margin-top: 1.5rem;
 }
 
-.continue-btn.member:active{
-  background: var(--blue);
+.non-bold-text{
+  font-weight: 400;
+  font-size: 0.9rem;
 }
 
+.passenger-info h3{
+  margin-bottom: 1rem;
+}
+
+.passenger-info span{
+  margin-bottom: 1rem;
+}
+
+/* Seat Map */
+
+.inner-pg-container{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.seat-map-legend-container{
+  width: 25rem;
+  height: 8rem;
+  margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.seat-legend{
+  width: 70%;
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seat-map-container{
+  width: 30rem;
+  height: auto;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.2) 2px 4px 6px;
+}
+
+.seat-row{
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border: 1px solid rgba(153, 148, 148, 0.2);
+}
+
+.seat-row.business{
+  height: 8rem;
+  padding: 0 3rem;
+}
+
+.seat-pair{
+  width: 10rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seat{
+  width: 4rem;
+  height: 4rem;
+  background: var(--lightblue);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+}
+
+.seat.business{
+  width: 8rem;
+  height: 5rem;
+}
+
+.seat.taken{
+  background: rgba(66, 66, 66, 0.636);
+  cursor: not-allowed;
+}
+
+.seat.selected{
+  background: white;
+  color: var(--blue);
+  font-weight: 600;
+  border: 2px solid var(--blue);
+}
+
+.btn-seats-pg{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+/* Member Overlay */
+
+.member-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background:rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1000;
+}
+
+.member-container{
+  width: 30rem;
+  height: 100%;
+  background: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-tab-close-btn{
+  border: none;
+  background: none;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  cursor: pointer;
+  font-size: 1.7rem;
+}
+
+.member-container-inner{
+  width: 70%;
+  height: 80%;
+}
+
+.name-welcome{
+  height: 12rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.name-welcome h2{
+  margin-bottom: 1rem;
+}
+
+.other-user-info h3{
+  margin-bottom: 1rem;
+}
+
+.other-user-info h4{
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.other-user-info p{
+  margin-bottom: 0.8rem;
+}
 
 
 
