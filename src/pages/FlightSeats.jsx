@@ -69,12 +69,10 @@ function FlightSeats(){
     const businessSeatsGrouped = splitSeatsIntoGroups(businessSeats.sort(compareSeats), 2);
 
     console.log(state);
-    // console.log(ordinarySeats.sort(compareSeats));
-    // console.log(ordinarySeatsGrouped); // Outputs the array of arrays, each containing 4 seats
-    // console.log(comfortSeatsGrouped); // Outputs the array of arrays, each containing 4 seats
-    // console.log(businessSeatsGrouped); // Outputs the array of arrays, each containing 4 seats
 
     console.log(chosenSeat);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -84,12 +82,13 @@ function FlightSeats(){
             return;
         }
 
+        navigate("/flight-payment", { state: { flight: state.flight, class: state.class, userDetails: state.userDetails, seat: chosenSeat, insurance: state.insurance } })
     }
 
     return (
         <div className="flight-overview-pg">
             <div className="flight-book-navbar" ref={topOfPage}>
-                <ul className="booking-process">
+            <ul className="booking-process">
                     <li className="booking-step">
                         <p>1. Overview</p>
                     </li>
@@ -98,6 +97,9 @@ function FlightSeats(){
                     </li>
                     <li className="booking-step">
                         <p>3. Payment</p>
+                    </li>
+                    <li className="booking-step">
+                        <p>3. Summary and Checkout</p>
                     </li>
                 </ul>
             </div>

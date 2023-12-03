@@ -1,5 +1,5 @@
 import {useLocation, Link, useNavigate} from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function FlightOverview({formatDate, user, setShowlogin}){
     const {state} = useLocation();
@@ -11,11 +11,18 @@ function FlightOverview({formatDate, user, setShowlogin}){
     const [email, setEmail] = useState(user && user.email);
     const [phone, setPhone] = useState(user && user.phone);
     const [dateOfBirth, setDateOfBirth] = useState(user && user.dateOfBirth);
+    const [insurance, setInsurance] = useState(false);
     var userBookingDetails;
     const navigate = useNavigate();
+    const topRef = useRef(null);
+
+    useEffect(() => {
+        topRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, []);
 
 
     console.log(state);
+    console.log(insurance);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,12 +32,12 @@ function FlightOverview({formatDate, user, setShowlogin}){
             return;
         }
 
-        navigate("/flight-seats", { state: { flight, class: flightClass, userDetails: { fname, lname, email, phone, dateOfBirth } } });
+        navigate("/flight-seats", { state: { flight, class: flightClass, userDetails: { fname, lname, email, phone, dateOfBirth }, insurance: insurance} });
     }
 
     return(
         <div className="flight-overview-pg">
-            <div className="flight-book-navbar">
+            <div className="flight-book-navbar" ref={topRef}>
                 <ul className="booking-process">
                     <li className="booking-step active">
                         <p>1. Overview</p>
@@ -40,6 +47,9 @@ function FlightOverview({formatDate, user, setShowlogin}){
                     </li>
                     <li className="booking-step">
                         <p>3. Payment</p>
+                    </li>
+                    <li className="booking-step">
+                        <p>3. Overview and Checkout</p>
                     </li>
                 </ul>
             </div>
@@ -82,13 +92,19 @@ function FlightOverview({formatDate, user, setShowlogin}){
                         </div>
                     </div>
                 </div>
+                <div className="insurance-container">
+                    <div className="terms-ack">
+                            <input type="checkbox" name="privacy-policy" id="policy-ack-box" value={insurance} onChange={(e) => setInsurance(e.target.checked)}/>
+                            <label for="privacy-policy">I want to purchase Flight Cancellation Insurance.</label>
+                        </div>
+                </div>
                 <div className="pg-title passenger-overview">
                     <h1>Passenger Overview</h1>
                 </div>
                 <form onSubmit={handleSubmit}>
                 <div className="inpage-container passenger-info">
                     <h3>Passenger Details</h3>
-                    <span style={{fontWeight: 400, fontSize: "0.9rem"}}>* <span style={{color: "#165689", textDecoration: "underline", cursor: "pointer"}} onClick={() => setShowlogin(true)}>Login </span>to retrieve  your information</span>
+                    {!user && <span style={{fontWeight: 400, fontSize: "0.9rem"}}>* <span style={{color: "#165689", textDecoration: "underline", cursor: "pointer"}} onClick={() => setShowlogin(true)}>Login </span>to retrieve  your information</span>}
                     <div className="passenger-inputs-container">
                         <div className="row passenger">
                             <div className="passenger-input">
@@ -121,27 +137,7 @@ function FlightOverview({formatDate, user, setShowlogin}){
                 <button type="submit" className="continue-btn">Continue</button>
                 </form>
                 {/* <Link to={"/flight-seats"} state={{flight: flight, class: flightClass, userDetails: {fname: fname, lname: lname, email: email, phone: phone, dateOfBirth: dateOfBirth} }}><button className="continue-btn">Continue</button></Link> */}
-                {/* <div className="inpage-container price-summary">
-                    <h3>Price Summary</h3>
-                    <div className="price-breakdown-container">
-                        <p className="underlined">1 Adult</p>
-                        <div className="flight-price">
-                            <h3>Flight</h3>
-                            <div className="inline-text price">
-                                <p>Air transportation charges</p>
-                                <p>1 x $2212.00</p>
-                            </div>
-                            <div className="inline-text price">
-                                <p>Taxes, fees and charges</p>
-                                <p>$86.00</p>
-                            </div>
-                            <div className="inline-text price total">
-                                <h3>Grand total (CAD)</h3>
-                                <h3>$2300</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+                
             </div>
         </div>
     )

@@ -2,11 +2,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Main({getFlights, flights, setFlights}){
+function Main({getFlights, flights, setFlights, retrieveBooking}){
     const [departureAirport, setDepartureAirport] = useState("");
     const [arrivalAirport, setArrivalAirport] = useState("");
     const [date, setDate] = useState("");
     const [tab, setTab] = useState("bookflight");
+    const [bookingNumber, setBookingNumber] = useState();
     const navigate = useNavigate();
 
     console.log("in Main.jsx: ", flights);
@@ -19,6 +20,11 @@ function Main({getFlights, flights, setFlights}){
     const onFlightSearch = (e) => {
         e.preventDefault();
         getFlights(departureAirport, arrivalAirport, date, navigate);
+    }
+
+    const handleRetrieval = (e) => {
+        e.preventDefault();
+        retrieveBooking(bookingNumber, navigate);
     }
 
     return(
@@ -67,11 +73,11 @@ function Main({getFlights, flights, setFlights}){
                     <div className="search-flight-text">
                         <h3 className="text">Enter your booking details to retrieve your itinerary</h3>
                     </div>
-                    <form className="search-booking-form">
+                    <form className="search-booking-form" onSubmit={handleRetrieval}>
                             <div className="row">
                                 <div className="booking-num">
                                     <label for="departure-date">Booking Number</label>
-                                    <input type="text" name="booking-ref" placeholder="Six-character booking reference"/>
+                                    <input type="text" name="booking-ref" placeholder="Six-character booking reference" onChange={(e) => setBookingNumber(e.target.value)}/>
                                 </div>
                                 <div className="passenger-last-name">
                                     <label for="departure-date">Passenger Last Name</label>

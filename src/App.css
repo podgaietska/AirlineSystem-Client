@@ -123,7 +123,7 @@ label{
   flex-direction: column;
   justify-content: center;
   margin-right: 1rem;
-  height: 6rem;
+  height: 8rem;
   margin-top: 3rem;
   border-top: 2px solid rgba(20, 20, 20, 0.2);
 }
@@ -512,6 +512,7 @@ input::placeholder{
 #password-note{
   margin-top: 1rem;
   width: 50%;
+  margin-bottom: 2rem;
 }
 
 .registration-optns{
@@ -579,6 +580,16 @@ input[type="checkbox"]{
 }
 
 /* Login Overlay */
+
+.login-method{
+  width: 100%;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  text-align: center;
+  color: var(--darkblue);
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .login-overlay{
   position: fixed;
@@ -1162,6 +1173,93 @@ input[type="checkbox"]{
   justify-content: flex-end;
 }
 
+/* Payment Page */
+
+.inpage-container.payment-details{
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-options{
+  width: 100%;
+  height: 4rem;
+  background: rgba(49, 49, 49, 0.429);
+  display: flex;
+  align-items: center;
+}
+
+.payment-option{
+  height: 100%;
+  width: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.payment-option.chosen{
+  background: white;
+  color: var(--blue);
+
+}
+
+.payment-container{
+  padding: 1.5rem 0;
+  width: 90%;
+  height: auto;
+}
+
+.payment-container h3{
+  margin-bottom: 2rem;
+}
+
+.row.payment{
+  height: 5.5rem;
+}
+
+.passenger-input.expiration{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card-expiration, .cvv, .province{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.cvv{
+  margin-left: 4rem;
+}
+
+.card-expiration.year{
+  background: red;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.passenger-input.expiration p{
+  font-size: 2rem;
+  margin-left: 0.5rem;
+  margin-right: 1.4rem;
+}
+
+.passenger-input.expiration input{
+  width: 5rem;
+}
+
+.payment-inputs-container{
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 
 /* Member Overlay */
 
@@ -1226,6 +1324,167 @@ input[type="checkbox"]{
 .other-user-info p{
   margin-bottom: 0.8rem;
 }
+
+/* Bookings */
+
+.bookings-page{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--offwhite);
+}
+
+.page-container{
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+}
+
+.mini-header.booking{
+  background: var(--lightblue);
+}
+
+.flight-summary-container.booking{
+  background: white;
+  margin-bottom: 1rem;
+}
+
+.small-text.booking{
+  margin-top: 1rem;
+}
+
+.small-text.booking p{
+  margin-bottom: 0.2rem;
+}
+
+.passenger-choice-details.booking{
+  position: relative;
+}
+
+.cancel-booking{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.8rem;
+  color: white;
+  cursor: pointer;
+  border: none;
+  background: var(--lightblue);
+  padding: 0.5rem 1rem;
+}
+
+/* Agent Flight Page */
+
+.search-bar{
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search-inputs{
+  width: 30rem;
+  display: flex;
+  align-items: center;
+}
+
+.search-inputs input{
+  height: 3rem;
+  width: 80%;
+  padding: 0 1rem;
+  border: 1px solid rgba(66, 64, 64, 0.25);
+}
+
+.search-inputs button{
+  height: 3rem;
+  width: 20%;
+  border: none;
+  background: rgba(66, 64, 64, 0.25);
+  color: var(--darkblue);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.reg-text.agent-search{
+  margin-bottom: 4rem;
+}
+
+.passenger-list{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  
+}
+
+.passenger-info.agent{
+  background: white;
+  width: 80%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border: 1px solid rgba(153, 148, 148, 0.2);
+  margin-bottom: 1rem;
+}
+
+/* Manage Promotions */
+
+.email-constructor{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subject-inputs, .message-input{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.subject-inputs input{
+  height: 3rem;
+  width: 100%;
+  border: 1px solid rgba(66, 64, 64, 0.25);
+  padding: 0 1rem;
+  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: grey;
+}
+
+.subject-inputs input::placeholder{
+  color: grey;
+}
+
+.message-input textarea{
+  height: 20rem;
+  width: 100%;
+  border: 1px solid rgba(66, 64, 64, 0.25);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.send-email-btn{
+  width: 50%;
+  height: 3rem;
+  border: none;
+  background: var(--lightblue);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+
 
 
 

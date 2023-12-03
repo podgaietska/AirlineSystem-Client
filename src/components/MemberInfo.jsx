@@ -1,12 +1,37 @@
-function MemberInfo({setShowUserTab, user, logout}){
+import {Link, useNavigate} from 'react-router-dom';
+function MemberInfo({setShowUserTab, user, logout, getBookings, loginAsAgent, getAllFlights}){
+    const navigate = useNavigate();
+
+    const handleViewBookings = () => {
+        getBookings(navigate);
+        setShowUserTab(false);
+    }
+
+    const handleViewFlights = () => {
+        setShowUserTab(false);
+        navigate("/agent/flights");
+    }
+
+    const handleManagePromotions = () => {
+        setShowUserTab(false);
+        navigate("/agent/promotions");
+    }
+
+    const handleLogout = () => {
+        logout();
+        setShowUserTab(false);
+        navigate("/");
+    }
+
     return(
         <div className="member-overlay">
             <div className="member-container">
                 <div className="member-container-inner">
                     <div className="name-welcome">
                         <h2>Welcome, {user.fname}!</h2>
-                        <p>Your Membership Number: {user.membershipNum}</p>
+                        {loginAsAgent ? <p>Your Employee Id: {user.employeeId}</p> : <p>Your Membership Number: {user.membershipNum}</p>}
                     </div>
+                    {!loginAsAgent && (
                     <div className="other-user-info">
                         <h3>Your Personal Information:</h3>
                         <div className="user-details">
@@ -20,9 +45,16 @@ function MemberInfo({setShowUserTab, user, logout}){
                             <p>{user.address.postalCode}</p>
                         </div>
                     </div>
+                    )}
                     <div className="user-actions">
-                        <button>View Bookings</button>
-                        <button onClick={logout}>Sign Out</button>
+                        {loginAsAgent ? (
+                            <>
+                            <button onClick={handleViewFlights}>Browse Passengers</button>
+                            <button onClick={handleManagePromotions}>Manage Promotions</button>
+                            </>
+                        )
+                         : <Link><button onClick={handleViewBookings}>View Bookings</button></Link>}
+                        <button onClick={handleLogout}>Sign Out</button>
                     </div>
                 </div>
                 <button className="user-tab-close-btn" onClick={() => setShowUserTab(false)}>x</button>
