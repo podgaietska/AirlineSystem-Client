@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Main({getFlights, flights, setFlights, retrieveBooking}){
+function Main({getFlights, flights, setFlights, retrieveBooking, bookings}){
     const [departureAirport, setDepartureAirport] = useState("");
     const [arrivalAirport, setArrivalAirport] = useState("");
     const [date, setDate] = useState("");

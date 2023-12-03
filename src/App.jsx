@@ -389,7 +389,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout setShowlogin={setShowlogin} user={user} setShowUserTab={setShowUserTab} showUserTab={showUserTab} logout={logout} getBookings={getBookings} showlogin={showlogin} login={login} loginAsAgent={loginAsAgent} setLoginAsAgent={setLoginAsAgent} loginAgent={loginAgent} getAllFlights={getAllFlights}/>}>
-          <Route index element={<Main getFlights={getFlights} flights={flights} setFlights={setFlights} retrieveBooking={retrieveBooking}/>}/>
+          <Route index element={<Main getFlights={getFlights} flights={flights} setFlights={setFlights} retrieveBooking={retrieveBooking} bookings={bookings}/>}/>
           <Route path="register" element={<Register setShowlogin={setShowlogin} register={register}/>}/>
           <Route path="flights" element={<Flights flights={flights} flightInfo={flightInfo} setFlightInfo={setFlightInfo} formatDate={formatDate}/>}/>
           {/* Change to flights/:flightId */}
