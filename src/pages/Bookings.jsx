@@ -1,9 +1,7 @@
 import {useLocation} from "react-router-dom";
 import { useState } from "react";
 
-function Bookings({cancelBooking}){
-    const {state} = useLocation();
-    const bookings = state.bookings;
+function Bookings({cancelBooking, bookings}){
     const [bookingNumber, setBookingNumber] = useState();
 
     console.log(bookings);
@@ -11,7 +9,6 @@ function Bookings({cancelBooking}){
     const handleCancelBooking = (e) => {
         e.preventDefault();
         cancelBooking(bookingNumber);
-
     }
 
     return(

@@ -33,7 +33,6 @@ function Register({setShowlogin, register}){
             postalCode: postalCode
         }
 
-        // console.log(fname, lname, email, phone, dateOfBirth, password, address);
         register(fname, lname, email, phone, dateOfBirth, address, password, navigate);
     }
 

@@ -23,12 +23,8 @@ function App() {
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
   const [bookings, setBookings] = useState(localStorage.getItem('bookings') ? JSON.parse(localStorage.getItem('bookings')) : []);
   const [flightInfo, setFlightInfo] = useState(localStorage.getItem('flightInfo') ? JSON.parse(localStorage.getItem('flightInfo')) : null);
-  const [loginAsAgent, setLoginAsAgent] = useState(true);
-  const [passengerList, setPassengerList] = useState([]);
-
-  console.log(user);
-
-  console.log(loginAsAgent);
+  const [loginAsAgent, setLoginAsAgent] = useState(localStorage.getItem('loginAsAgent') ? JSON.parse(localStorage.getItem('loginAsAgent')) : false);
+  const [passengerList, setPassengerList] = useState(localStorage.getItem('passengerList') ? JSON.parse(localStorage.getItem('passengerList')) : []);
 
   const register = (fname, lname, email, phone, dateOfBirth, address, password, navigate) => {
     try {
@@ -49,12 +45,11 @@ function App() {
 
         if (!res.ok) {
           const response = await res.json();
-          console.log(response);
+          toast.error(response.error);
           return
         }
 
         const data = await res.json();
-        console.log(data);
         setUser(data);
         localStorage.setItem('user', JSON.stringify(data));
         navigate('/');
@@ -87,7 +82,7 @@ function App() {
 
         if (!res.ok) {
           const response = await res.json();
-          console.log(response);
+          toast.error(response.error);
           return false
         }
 
@@ -124,7 +119,7 @@ function App() {
         });
         if (!res.ok) {
           const response = await res.json();
-          console.log(response);
+          toast.warn(response.error);
           return
         }
         const data = await res.json();
@@ -165,6 +160,7 @@ function App() {
         setUser(data);
         setLoginAsAgent(true);
         localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('loginAsAgent', JSON.stringify(true));
         setShowlogin(false);
         if (location.pathname === '/register'){
           navigate('/');
@@ -185,12 +181,12 @@ function App() {
     if (answer){
       setUser(null);
       localStorage.removeItem('user');
+      localStorage.removeItem('loginAsAgent');
       setLoginAsAgent(false);
     }
   }
 
   const getBookings = (navigate) => {
-    const sending = toast("Retreiving booking...");
     localStorage.removeItem('bookings');
     try{
       const fetchBookings = async () => {
@@ -199,6 +195,37 @@ function App() {
           method: 'GET',
           headers: {'Content-Type': 'application/json'},
         });
+        if (!res.ok) {
+          const response = await res.json();
+          toast.error(response.error);
+          console.log(response);
+          return
+        }
+
+        const data = await res.json();
+        console.log(data);
+        setBookings(data);
+        localStorage.setItem('bookings', JSON.stringify(data));
+        navigate('/my-bookings');
+        return
+      }
+
+      fetchBookings();
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+  const retrieveBooking = (bookingNumber, navigate) => {
+    const sending = toast("Retreiving booking...");
+    try{
+      const fetchRetrieveBooking = async () => {
+        const res = await fetch(`http://localhost:8080/api/v1/booking/${bookingNumber}`, {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'},
+        });
+
         if (!res.ok) {
           const response = await res.json();
           toast.dismiss(sending);
@@ -210,13 +237,11 @@ function App() {
         const data = await res.json();
         console.log(data);
         setBookings(data);
-        localStorage.setItem('bookings', JSON.stringify(data));
         toast.dismiss(sending);
-        navigate('/my-bookings', {state: {bookings: data}});
+        navigate('/my-bookings');
         return
       }
-
-      fetchBookings();
+      fetchRetrieveBooking();
     }
     catch(error){
       console.log(error);
@@ -224,7 +249,7 @@ function App() {
   }
 
   const cancelBooking = (bookingNumber) => {
-    const sending = toast("Canceling...");
+    const sending = toast("Cancelling...");
     try{
       const fetchCancelBooking = async () => {
         const res = await fetch(`http://localhost:8080/api/v1/booking/cancel/${bookingNumber}`, {
@@ -243,6 +268,7 @@ function App() {
         
         const updatedBookings = bookings.filter(booking => booking.bookingNumber !== bookingNumber);
         setBookings(updatedBookings);
+        console.log(updatedBookings);
 
         localStorage.setItem('bookings', JSON.stringify(updatedBookings));
 
@@ -284,7 +310,6 @@ function App() {
   }
 
   const getPassengerList = (flightNumber) => {
-    const sending = toast("Retreiving...");
     try {
       const fetchPassengerList = async () => {
         const res = await fetch(`http://localhost:8080/api/v1/agent/${flightNumber}/passengers`, {
@@ -294,7 +319,6 @@ function App() {
 
         if (!res.ok) {
           const response = await res.json();
-          toast.dismiss(sending);
           toast.error(response.error);
           console.log(response);
           return
@@ -303,7 +327,7 @@ function App() {
         const data = await res.json();
         console.log(data);
         setPassengerList(data);
-        toast.dismiss(sending);
+        localStorage.setItem('passengerList', JSON.stringify(data));
         return
       }
       fetchPassengerList();
@@ -344,38 +368,6 @@ function App() {
     }
   }
 
-  const retrieveBooking = (bookingNumber, navigate) => {
-    const sending = toast("Retreiving booking...");
-    try{
-      const fetchRetrieveBooking = async () => {
-        const res = await fetch(`http://localhost:8080/api/v1/booking/${bookingNumber}`, {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'},
-        });
-
-        if (!res.ok) {
-          const response = await res.json();
-          toast.dismiss(sending);
-          toast.error(response.error);
-          console.log(response);
-          return
-        }
-
-        const data = await res.json();
-        console.log(data);
-        setBookings([data]);
-        toast.dismiss(sending);
-        navigate('/my-bookings', {state: {bookings: [data]}});
-        return
-      }
-      fetchRetrieveBooking();
-    }
-    catch(error){
-      console.log(error);
-    }
-  }
-
-  console.log(passengerList);
 
   const formatDate = (dateString) => {
     const [year, month, day] = dateString.split('-').map(num => parseInt(num));
@@ -397,9 +389,9 @@ function App() {
           <Route path="flight-seats" element={<FlightSeats formatDate={formatDate} user={user}/>}/>
           <Route path="flight-payment" element={<FlightPayment formatDate={formatDate} user={user}/>}/>
           <Route path="checkout" element={<FinalFlightDetails formatDate={formatDate} user={user}/>}/>
-          <Route path="my-bookings" element={<Bookings formatDate={formatDate} user={user} cancelBooking={cancelBooking}/>}/>
+          <Route path="my-bookings" element={<Bookings formatDate={formatDate} user={user} cancelBooking={cancelBooking} bookings={bookings}/>}/>
           <Route path="member-info" element={<MemberInfo setShowUserTab={setShowUserTab} user={user} logout={logout} getBookings={getBookings}/>}/>
-          <Route path="agent/flights" element={<AgentFlights formatDate={formatDate} user={user} passengerList={passengerList} getPassengerList={getPassengerList}/>}/>
+          <Route path="agent/flights" element={<AgentFlights formatDate={formatDate} user={user} passengerList={passengerList} getPassengerList={getPassengerList} setPassengerList={setPassengerList}/>}/>
           <Route path="agent/promotions" element={<PromotionManager formatDate={formatDate} user={user} sendPromotion={sendPromotion}/>} />
         </Route>
       </Routes>

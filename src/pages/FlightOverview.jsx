@@ -20,10 +20,6 @@ function FlightOverview({formatDate, user, setShowlogin}){
         topRef.current?.scrollIntoView({ behavior: "smooth" });
     }, []);
 
-
-    console.log(state);
-    console.log(insurance);
-
     const handleSubmit = (e) => {
         e.preventDefault();
 

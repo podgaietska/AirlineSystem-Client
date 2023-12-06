@@ -1484,6 +1484,12 @@ input[type="checkbox"]{
   margin-top: 2rem;
 }
 
+.no-results{
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
 
 
 

@@ -9,6 +9,8 @@ function PromotionManager({sendPromotion}) {
         e.preventDefault();
 
         sendPromotion(subject, message);
+        setSubject("");
+        setMessage("");
     }
 
 

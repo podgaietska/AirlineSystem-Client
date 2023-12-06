@@ -10,8 +10,6 @@ function Main({getFlights, flights, setFlights, retrieveBooking, bookings}){
     const [bookingNumber, setBookingNumber] = useState();
     const navigate = useNavigate();
 
-    console.log("in Main.jsx: ", flights);
-
     useEffect(() => {
         localStorage.removeItem('flights');
         setFlights([]);

@@ -11,8 +11,6 @@ function LoginOverlay({setShowlogin, login, loginAsAgent, setLoginAsAgent, login
 
     const onLogin = (e) => {
         e.preventDefault();
-        console.log("Logging in");
-        console.log(email, password);
         if (loginAsAgent){
             loginAgent(employeeId, password, navigate, location);
         } else{

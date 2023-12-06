@@ -33,9 +33,10 @@ function FinalFlightDetails({formatDate, user}){
             paymentStrategy: state.paymentDetails.paymentStrategy,
     }
 
+    console.log(bookingRequest);
+
     createBooking(bookingRequest, state.flight.id, state.seat, state.insurance);
 
-    console.log(bookingRequest);
     // console.log(state);
     // console.log(state.seat);
     // console.log(state.insurance);
