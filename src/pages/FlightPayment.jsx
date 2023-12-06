@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 function FlightPayment({formatDate, user}){
     const {state} = useLocation();
@@ -12,6 +13,7 @@ function FlightPayment({formatDate, user}){
     const navigate = useNavigate();
     let paymentDetails = {};
     const topRef = useRef(null);
+    const validProvinces = ["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan"];
 
     useEffect(() => {
         topRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,9 +23,15 @@ function FlightPayment({formatDate, user}){
         e.preventDefault();
 
         if (!cardNumber || !province || !expirationMonth || !expirationYear || !cvv) {
-            alert("Please fill in all required fields.");
+            toast.warn("Please fill in all required fields.");
             return;
         }
+
+        if (!validProvinces.includes(province)){
+            toast.warn("Valid provinces are: Alberta, British Columbia, Manitoba, New Brunswick, Newfoundland and Labrador, Nova Scotia, Ontario, Prince Edward Island, Quebec, Saskatchewan");
+            return;
+        }
+
 
         paymentDetails = {
             cardNumber: cardNumber,

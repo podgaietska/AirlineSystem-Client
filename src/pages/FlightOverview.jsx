@@ -20,8 +20,21 @@ function FlightOverview({formatDate, user, setShowlogin}){
         topRef.current?.scrollIntoView({ behavior: "smooth" });
     }, []);
 
+    useEffect(() => {
+        if (user) {
+            setFname(user.fname);
+            setLname(user.lname);
+            setEmail(user.email);
+            setPhone(user.phone);
+            setDateOfBirth(user.dateOfBirth);
+        }
+    
+    }, [user]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        console.log(fname, lname, email, phone, dateOfBirth)
 
         if (!fname || !lname || !email || !phone || !dateOfBirth) {
             alert("Please fill in all required fields.");
